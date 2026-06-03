@@ -59,3 +59,56 @@ def test_recipe_len():
         Ingredient("Сыр",50,"г")
     ])
     assert len(recipe)==2
+
+
+
+def test_add_recipe():
+    """Проверка добавления рецепта в список покупок"""
+    recipe=Recipe("Пицца",[Ingredient("Мука",100,"г")])
+    sl=ShoppingList()
+    sl.add_recipe(recipe,2)
+    items=sl.get_list()
+    assert len(items)== 1
+    assert items[0].quantity ==200.0
+
+def test_add_recipe_invalid_portions():
+    """Проверка выброса исключения при порциях <= 0"""
+    recipe=Recipe("Пицца",[Ingredient("Мука",100,"г")])
+    sl=ShoppingList()
+    with pytest.raises(ValueError):
+        sl.add_recipe(recipe,0)
+    with pytest.raises(ValueError):
+        sl.add_recipe(recipe,-1)
+
+def test_remove_recipe():
+    """Проверка удаления рецепта из списка"""
+    recipe=Recipe("Пицца",[Ingredient("Мука",100,"г")])
+    sl=ShoppingList()
+    sl.add_recipe(recipe,1)
+    sl.remove_recipe("Пицца")
+    assert len(sl.get_list())==0
+    sl.remove_recipe("Борщ")
+
+def test_get_list():
+    """Проверка суммирования и сортировки итогового списка"""
+    r1=Recipe("Пицца",[Ingredient("Мука",100,"г")])
+    r2=Recipe("Хлеб",[Ingredient("Мука",200,"г"),Ingredient("Дрожжи",1,"шт")])
+    sl=ShoppingList()
+    sl.add_recipe(r1,1)
+    sl.add_recipe(r2,1)
+    items =sl.get_list()
+    flour =next(i for i in items if i.name=="Мука")
+    assert flour.quantity==300.0
+    assert items[0].name=="Дрожжи"
+    assert items[1].name=="Мука"
+
+def test_add_operator():
+    """Проверка объединения двух списков покупок через +"""
+    sl1=ShoppingList()
+    sl1.add_recipe(Recipe("A",[Ingredient("X",1,"шт")]),1)
+    sl2=ShoppingList()
+    sl2.add_recipe(Recipe("B",[Ingredient("Y",2,"шт")]),1)
+    combined=sl1+sl2
+    assert len(combined.get_list())==2
+    assert len(sl1.get_list())==1
+    assert len(sl2.get_list())==1
