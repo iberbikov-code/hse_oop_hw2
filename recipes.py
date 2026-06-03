@@ -35,6 +35,8 @@ class Recipe:
     def is_valid_ratio(ratio):
         return isinstance(ratio,(int,float))and ratio>0
     def scale(self,ratio:float)->'Recipe':
+        if not self.is_valid_ratio(ratio):
+            raise ValueError("Коэффициент масштабирования должен быть положительным числом")
         new_ingredients=[
             Ingredient(ing.name,ing.quantity*ratio,ing.unit) 
             for ing in self.ingredients
