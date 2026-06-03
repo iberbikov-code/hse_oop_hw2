@@ -23,15 +23,19 @@
 ### Установка и запуск проекта
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/iberbikov-code/hse_oop_hw2.git
+   git clone https://github.com/iberbikov-code/TP_OOP_HW2.git
    ```
 2. Перейдите в папку проекта:
    ```bash
-   cd hse_oop_hw2
+   cd TP_OOP_HW2
    ```
 3. Установите зависимости проекта:
    ```bash
    pip install -r requirements.txt
+   ```
+   (на MacOs часто не распознается команда Pip поэтому вот альтернативный вариант)
+   ```bash
+   python3 -m pip install -r requirements.txt
    ```
 4. Для запуска тестов введите:
    ```bash
