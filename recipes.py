@@ -29,6 +29,7 @@ class Recipe:
         for existing in self.ingredients:
             if existing==ingredient:
                 existing.quantity+=ingredient.quantity
+                return
         self.ingredients.append(ingredient)
     @staticmethod
     def is_valid_ratio(ratio):
