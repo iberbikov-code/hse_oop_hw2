@@ -10,6 +10,9 @@ def test_ingredient_str():
     """Проверка метода __str__"""
     ing =Ingredient("Мука",500,"г")
     assert str(ing)== "Мука: 500.0 г"
+def test_ingredient_repr():
+    ing=Ingredient("Мука", 500, "г")
+    assert repr(ing)=="Ingredient('Мука', 500.0, 'г')"
 def test_ingredient_eq():
     """Проверка метода __eq__"""
     ing1=Ingredient("Мука",500,"г")
@@ -37,6 +40,10 @@ def test_add_ingredient():
     
     assert len(recipe.ingredients)==2 
     assert recipe.ingredients[0].quantity==700.0
+def test_is_valid_ratio():
+    assert Recipe.is_valid_ratio(2)
+    assert not Recipe.is_valid_ratio(0)
+    assert not Recipe.is_valid_ratio(-1)
 def test_scale():
     """Проверка масштабирования рецепта"""
     recipe=Recipe("Пицца",[Ingredient("Мука",100,"г")])
@@ -59,6 +66,9 @@ def test_recipe_len():
         Ingredient("Сыр",50,"г")
     ])
     assert len(recipe)==2
+def test_recipe_str():
+    r=Recipe("Пицца", [Ingredient("Мука", 100, "г")])
+    assert "Пицца" in str(r) and "Мука" in str(r)
 
 
 
@@ -112,3 +122,12 @@ def test_add_operator():
     assert len(combined.get_list())==2
     assert len(sl1.get_list())==1
     assert len(sl2.get_list())==1
+
+
+
+def test_dietary_recipe_str():
+    dr=DietaryRecipe("Пицца","Веганский",[Ingredient("М",100,"г")])
+    assert str(dr).startswith("[Веганский]")
+def test_dietary_recipe_scale_returns_dietary():
+    dr=DietaryRecipe("П","В",[Ingredient("М",100,"г")])
+    assert isinstance(dr.scale(2), DietaryRecipe)
