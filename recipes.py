@@ -15,7 +15,7 @@ class Ingredient:
         return f"{self.name}: {self.quantity} {self.unit}"
 
     def __repr__(self)->str:
-        return f"Ingredient('{self.name}',{self.quantity},'{self.unit}')"
+        return f"Ingredient('{self.name}', {self.quantity}, '{self.unit}')"
 
     def __eq__(self, other)->bool:
         if not isinstance(other,Ingredient):
@@ -46,7 +46,7 @@ class Recipe:
         return len(self.ingredients)
     def __str__(self):
         ing_strs="\n".join([f" -{ing}" for ing in self.ingredients])
-        return f"Рецепт:{self.title}\nИнгредиенты:\n{ing_strs}"
+        return f"Рецепт: {self.title}\nИнгредиенты:\n{ing_strs}"
 class ShoppingList:
     def __init__(self):
         self._items=[]
@@ -84,5 +84,5 @@ class DietaryRecipe(Recipe):
         scaled_parent=super().scale(ratio)
         return DietaryRecipe(scaled_parent.title,self.diet_type,scaled_parent.ingredients)
     def __str__(self):
-        parent_str=super().__str__()
-        return f"[{self.diet_type}]{parent_str}"
+        ing_strs = "\n".join([f" -{ing}" for ing in self.ingredients])
+        return f"[{self.diet_type}] {self.title}\nИнгредиенты:\n{ing_strs}"
