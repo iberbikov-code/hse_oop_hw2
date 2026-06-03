@@ -12,7 +12,7 @@ class Ingredient:
             raise ValueError("Количество должно быть положительным")
         self._quantity=float(value)
     def __str__(self)->str:
-        return f"{self.name}:{self.quantity}{self.unit}"
+        return f"{self.name}: {self.quantity} {self.unit}"
 
     def __repr__(self)->str:
         return f"Ingredient('{self.name}',{self.quantity},'{self.unit}')"
